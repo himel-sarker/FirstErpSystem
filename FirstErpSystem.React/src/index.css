@@ -1,0 +1,122 @@
+/*
+================================================================
+index.css — Added By Himel Sarkar 09-06-2026
+LEARNING FLOW:
+- Global CSS = সব page-এ apply হবে
+- Vite default CSS override করা
+- Bootstrap-এর সাথে custom styles add
+- body background = dark theme feel
+- scrollbar = custom styled
+- modal overlay fix = modal show করার সময় background scroll বন্ধ
+================================================================
+*/
+
+/* Reset Vite defaults */
+:root {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color: #1a1a2e;
+    background-color: #f0f2f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #f0f2f5;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Modal backdrop fix */
+.modal.show {
+    overflow-y: auto;
+}
+
+/* Table hover fix */
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Card hover effect */
+.card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Navbar brand hover */
+.navbar-brand:hover {
+    opacity: 0.9;
+}
+
+/* Badge size fix */
+.badge {
+    font-weight: 500;
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Button transition */
+.btn {
+    transition: all 0.15s ease;
+}
+
+/* Alert animation */
+.alert {
+    animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Spinner center */
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.2em;
+}
+
+/* Modal animation */
+.modal.show .modal-content {
+    animation: modalPop 0.2s ease;
+}
+
+@keyframes modalPop {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}

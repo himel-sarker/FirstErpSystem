@@ -1,0 +1,77 @@
+# ================================================================
+# docker-compose.yml — Added By Himel Sarkar 10-06-2026
+# LEARNING: Compose = Multiple container একসাথে manage করা
+# depends_on = কোন container আগে চালু হবে সেটা নির্ধারণ
+# networks = Container গুলো নিজেদের মধ্যে কথা বলার জন্য
+# volumes = Database data permanently save রাখার জন্য
+# ================================================================
+
+
+services:
+  # 1. SQL Server Database
+  erp-sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=YourStrong@Passw0rd
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - erp-network
+
+  # 2. .NET API
+  erp-api:
+    build:
+      context: ./FirstErpSystem.Api
+      dockerfile: Dockerfile
+    # LEARNING: Environment variables override appsettings.json
+    environment:
+        #docker jonno Development add korchi
+      - ASPNETCORE_ENVIRONMENT=Development  
+
+      #Comment by Himel
+      #- ConnectionStrings__DefaultConnection=Server=erp-sqlserver;Database=ErpDb;User Id=sa;Password=YourStrong@Passw0rd;TrustServerCertificate=True;
+      #- JwtSettings__SecretKey=SuperSecretKey_For_Docker_12345!
+      #- JwtSettings__Issuer=FirstErpSystem
+      #- JwtSettings__Audience=FirstErpSystem
+      #Comment by Himel
+
+        # LEARNING: ${VAR} syntax reads from .env file
+      - ConnectionStrings__DefaultConnection=Server=erp-sqlserver;Database=ErpDb;User Id=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;
+      - JwtSettings__SecretKey=${JWT_SECRET}
+      - JwtSettings__Issuer=FirstErpSystem
+      - JwtSettings__Audience=FirstErpSystem
+      - EmailSettings__SenderEmail=${EMAIL_ADDRESS}
+      - EmailSettings__AppPassword=${EMAIL_APP_PASSWORD}
+      - SmsSettings__ApiKey=${SMS_API_KEY}
+
+    ports:
+      - "5123:8080"
+    depends_on:
+      - erp-sqlserver
+    restart: on-failure # DB ready হতে সময় লাগতে পারে
+    networks:
+      - erp-network
+
+      
+
+  # 3. React Frontend + Nginx
+  erp-frontend:
+    build:
+      context: ./FirstErpSystem.React
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - erp-api
+    networks:
+      - erp-network
+
+networks:
+  erp-network:
+    driver: bridge
+
+volumes:
+  sqlserver_data:

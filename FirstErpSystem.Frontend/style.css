@@ -1,0 +1,224 @@
+/*
+================================================================
+STYLE.CSS — Added By Himel Sarker 08-06-2025
+LEARNING:
+- Bootstrap handles layout/grid
+- This file adds custom styles ON TOP of Bootstrap
+- We never override Bootstrap core — we extend it
+================================================================
+*/
+
+/* ── Global ─────────────────────────────────────────────── */
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── Login Page ──────────────────────────────────────────── */
+/*
+LEARNING: linear-gradient = two colors blending
+vh-100 = height 100% of viewport
+*/
+#loginPage {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+#loginPage .card {
+    border: none;
+    border-radius: 16px;
+}
+
+/*
+Login logo circle — Added By Himel Sarker 08-06-2025
+LEARNING: This is a decorative icon container
+*/
+.login-logo {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    font-size: 28px;
+    color: white;
+}
+
+/* ── Navbar ──────────────────────────────────────────────── */
+/*
+LEARNING: box-shadow adds depth below navbar
+position sticky keeps navbar at top while scrolling
+*/
+.navbar {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/*
+Nav avatar icon — Added By Himel Sarker 08-06-2025
+*/
+.nav-avatar {
+    font-size: 28px;
+    color: #adb5bd;
+    line-height: 1;
+}
+
+/* ── Stat Cards ──────────────────────────────────────────── */
+/*
+LEARNING: stat cards show summary numbers at top of dashboard
+*/
+.stat-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+}
+
+.stat-label {
+    font-size: 13px;
+    opacity: 0.9;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-value-sm {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/*
+LEARNING: stat-icon is large decorative icon on right side of card
+*/
+.stat-icon {
+    font-size: 3rem;
+    opacity: 0.3;
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 12px;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* ── Table ───────────────────────────────────────────────── */
+/*
+LEARNING:
+table-hover highlights row on mouse over (Bootstrap class)
+We add custom padding and font-size here
+*/
+.table th {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 12px 16px;
+}
+
+.table td {
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 12px 16px;
+}
+
+/* ── Role Badges ─────────────────────────────────────────── */
+/*
+LEARNING: badge = small colored label
+Each role has different color for quick identification
+*/
+.badge-role {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+/* ── Modal ───────────────────────────────────────────────── */
+.modal-content {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    border-radius: 12px 12px 0 0;
+}
+
+/* ── Password Toggle Button ──────────────────────────────── */
+/*
+LEARNING — Added By Himel Sarkar 08-06-2025
+input-group puts input + button side by side
+The eye button has no background so it blends with input border
+*/
+.input-group .btn-outline-secondary {
+    border-left: 0;
+    background: white;
+}
+
+.input-group .btn-outline-secondary:hover {
+    background: #f8f9fa;
+}
+
+/* Focus ring fix — when input focused, group looks unified */
+.input-group:focus-within {
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    border-radius: 6px;
+}
+
+.input-group:focus-within .form-control,
+.input-group:focus-within .btn-outline-secondary {
+    box-shadow: none;
+    border-color: #86b7fe;
+}
+
+/* ── Buttons ─────────────────────────────────────────────── */
+.btn {
+    border-radius: 8px;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+/*
+LEARNING: @media = apply styles only on small screens
+col-md-3 already handles grid breakpoints via Bootstrap
+*/
+@media (max-width: 768px) {
+    .stat-value { font-size: 24px; }
+    .stat-icon  { font-size: 2rem; }
+}
+
+/* ── Employee Avatar ─────────────────────────────────────────
+LEARNING — Added By Himel Sarker 08-06-2025
+Avatar = নামের প্রথম অক্ষর দিয়ে ছোট circle তৈরি
+app.js এ: emp.fullName.charAt(0).toUpperCase()
+*/
+.emp-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
